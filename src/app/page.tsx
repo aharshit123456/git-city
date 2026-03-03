@@ -1071,8 +1071,8 @@ function HomeContent() {
 
         setStats(data.stats);
 
-        // Use globalMax from server for stability
-        let finalLayout = generateCityLayout(data.developers, data.globalMax);
+        // Generate layout relative to the current local chunk
+        let finalLayout = generateCityLayout(data.developers);
         setBuildings(finalLayout.buildings);
         setPlazas(finalLayout.plazas);
         setDecorations(finalLayout.decorations);
@@ -1125,7 +1125,7 @@ function HomeContent() {
           // should now handle this internally if we refactored it correctly)
           allDevs.sort((a, b) => (a.rank ?? 0) - (b.rank ?? 0));
 
-          finalLayout = generateCityLayout(allDevs, data.globalMax);
+          finalLayout = generateCityLayout(allDevs);
           setBuildings(finalLayout.buildings);
           setPlazas(finalLayout.plazas);
           setDecorations(finalLayout.decorations);

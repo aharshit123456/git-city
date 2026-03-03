@@ -363,7 +363,6 @@ function localBlockAxisPos(idx: number, footprint: number): number {
 
 export function generateCityLayout(
   devs: DeveloperRecord[],
-  globalMax?: { contributions: number; total_stars: number; contributions_total: number },
   districtOffsets?: Record<string, number>
 ): {
   buildings: CityBuilding[];
@@ -378,9 +377,9 @@ export function generateCityLayout(
   const decorations: CityDecoration[] = [];
   const districtZones: DistrictZone[] = [];
 
-  const maxContrib = globalMax?.contributions ?? devs.reduce((max, d) => Math.max(max, d.contributions), 1);
-  const maxStars = globalMax?.total_stars ?? devs.reduce((max, d) => Math.max(max, d.total_stars), 1);
-  const maxContribV2 = globalMax?.contributions_total ?? devs.reduce((max, d) => Math.max(max, d.contributions_total ?? 0), 1);
+  const maxContrib = devs.reduce((max, d) => Math.max(max, d.contributions), 1);
+  const maxStars = devs.reduce((max, d) => Math.max(max, d.total_stars), 1);
+  const maxContribV2 = devs.reduce((max, d) => Math.max(max, d.contributions_total ?? 0), 1);
 
   // ── 1. Group by district, sort within each, concat in priority order ──
   const composites = precomputeComposites(devs, maxContrib, maxStars, maxContribV2);
